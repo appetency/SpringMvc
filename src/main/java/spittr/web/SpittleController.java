@@ -33,7 +33,7 @@ private static final String MAX_LONG_AS_STRING = "9223372036854775807";
 @RequestMapping(value="/{spittleId}", method=RequestMethod.GET)
     public String spittle(@PathVariable("spittleId") long spittleId, Model model) {
         model.addAttribute(spittleRepository.findOne(spittleId));
-        return "spittle";
+        return "spittle";/*返回视图名*/
     }
     /*spittle()方法会将参数传递到SpittleRepository的findOne()方法中，用来获取某
     个Spittle对象，然后将Spittle对象添加到模型中。模型的key将会是spittle，这是根据
