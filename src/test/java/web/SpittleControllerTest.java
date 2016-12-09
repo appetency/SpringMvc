@@ -57,6 +57,20 @@ public class SpittleControllerTest {
             .andExpect(model().attribute("spittleList",
                     hasItems(expectedSpittles.toArray())));
   }
+  @Test
+  public void testSpittle() throws Exception {
+    Spittle expectedSpittle = new Spittle("Hello", new Date());  //返回信息和时间
+    SpittleRepository mockRepository = mock(SpittleRepository.class);//模拟信息
+    when(mockRepository.findOne(12345)).thenReturn(expectedSpittle); //这样的语法便是设置方法调用的返回值
+
+    SpittleController controller = new SpittleController(mockRepository);
+    MockMvc mockMvc = standaloneSetup(controller).build();
+
+    mockMvc.perform(get("/spittles/12345"))
+            .andExpect(view().name("spittle"))
+            .andExpect(model().attributeExists("spittle"))  ///验证存在spittle属性
+            .andExpect(model().attribute("spittle", expectedSpittle));//验证属性相等性
+  }
   private List<Spittle> createSpittleList(int count) {
     List<Spittle> spittles = new ArrayList<Spittle>();
     for (int i=0; i < count; i++) {
