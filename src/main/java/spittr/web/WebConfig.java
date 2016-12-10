@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 /*web配置*/
 @Configuration
@@ -21,6 +22,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     InternalResourceViewResolver resolver = new InternalResourceViewResolver(); /*配置jsp视图解析器*/
     resolver.setPrefix("/WEB-INF/views/");
     resolver.setSuffix(".jsp");
+    resolver.setViewClass(JstlView.class);
     return resolver;
   }
   

@@ -27,10 +27,11 @@ public class SpitterController {
   public String showRegistrationForm(){
    return "registerForm";
  }
- /*@RequestMapping(value = "/register",method = RequestMethod.POST)
+
+/* @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String processRegistration(Spitter spitter){
      spitterRepository.save(spitter);
-     return "redirect:/spitter"+spitter.getUsername(); }*/
+     return "redirect:/spitter/"+spitter.getUsername(); }*/
      //重定向到基本页信息
      /*当InternalResourceViewResolver看到视图格式中的“redirect:”前缀时，它就知道要将
      其解析为重定向的规则，而不是视图的名称。在本例中，它将会重定向到用户基本信息的页
