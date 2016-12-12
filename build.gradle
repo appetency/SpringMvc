@@ -15,13 +15,15 @@ repositories {
 dependencies {
 
     compile "org.springframework:spring-webmvc:$springVersion"
-    compile "javax.servlet:jstl:$jstlVersion"
-    compile "org.apache.commons:commons-lang3:$commonsLangVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "com.h2database:h2:$h2Version"
     compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+    compile "org.apache.commons:commons-lang3:$commonsLangVersion"
+
+    compile "javax.servlet:jstl:$jstlVersion"
     providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
     providedCompile "javax.servlet.jsp:jsp-api:$jspApiVersion"
     providedCompile "javax.el:javax.el-api:$jspElVersion"
-
 
     testCompile "junit:junit-dep:$junitVersion"
     testCompile "org.springframework:spring-test:$springVersion"

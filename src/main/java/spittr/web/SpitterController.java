@@ -6,11 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import spittr.Spitter;
 import spittr.data.SpitterRepository;
 
 import javax.validation.Valid;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("/spitter")
@@ -23,10 +25,7 @@ public class SpitterController {
     public SpitterController(SpitterRepository spitterRepository){  //注入
         this.spitterRepository=spitterRepository;
     }
- @RequestMapping(value = "/register",method = RequestMethod.GET)   /*处理对"/spitter/register的GET请求"*/
-  public String showRegistrationForm(){
-   return "registerForm";
- }
+
 
 /* @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String processRegistration(Spitter spitter){
@@ -37,7 +36,12 @@ public class SpitterController {
      其解析为重定向的规则，而不是视图的名称。在本例中，它将会重定向到用户基本信息的页
      面。例如，如果Spitter.username属性的值为“jbauer”，那么视图将会重定向
      到“/spitter/jbauer”。*/
- @RequestMapping(value="/register", method=RequestMethod.POST)
+@RequestMapping(value="/register", method= GET)
+public String showRegistrationForm(Model model) {
+
+    return "registerForm";
+}
+ @RequestMapping(value="/register", method= POST)
  public String processRegistration(
          @Valid Spitter spitter,
          Errors errors) {
@@ -49,7 +53,7 @@ public class SpitterController {
      return "redirect:/spitter/" + spitter.getUsername();
  }
 
-    @RequestMapping(value="/{username}", method=RequestMethod.GET)
+    @RequestMapping(value="/{username}", method= GET)
     public String showSpitterProfile(@PathVariable String username, Model model) {
         Spitter spitter = spitterRepository.findByUsername(username);
         model.addAttribute(spitter);
