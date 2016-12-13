@@ -3,6 +3,8 @@ package spittr.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -10,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.io.IOException;
 
 /*web配置*/
 @Configuration
@@ -37,4 +41,21 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     super.addResourceHandlers(registry);
   }
 
+  @Bean
+  public MultipartResolver multipartResolver() throws IOException {
+    return new StandardServletMultipartResolver();
+  }
+
+/*@Bean
+public MultipartResolver multipartResolver()throws IOException{
+        CommonsMultipartResolver multipartResolver= new CommonsMultipartResolver();
+        multipartResolver.setUploadTempDir(new FileSystemResource("/tmp/spittr/uploads"));
+        multipartResolver.setMaxUploadSize(2097152);
+        multipartResolver.setMaxInMemorySize(0);
+        return multipartResolver;
+  我们将最大的文件容量设置为2MB，最大的内存大小设置为0字节。这两个属性直接
+  对应于MultipartConfigElement的第二个和第四个构造器参数，表明不能上传超过2MB
+  的文件，并且不管文件的大小如何，所有的文件都会写到磁盘中。但是
+  与MultipartConfigElement有所不同，我们无法设定multipart请求整体的最大容量。
+        }*/
 }

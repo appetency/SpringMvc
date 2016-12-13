@@ -2,7 +2,8 @@ package spittr.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import spittr.web.WebConfig;
-
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
 /*配置DispatcherServlet*/
 /*
 当部署到Servlet 3.0容器中的时候，容器会自动发现 它，并用它来配置Servlet上下文。
@@ -30,5 +31,9 @@ public class SpitterWebInitializer extends AbstractAnnotationConfigDispatcherSer
     return new String[] { "/" };
   }  /*它会将一个或多个路径映射 到DispatcherServlet上*/
 
-
+  @Override
+  protected void customizeRegistration(Dynamic registration) {  /*通过重载customizeRegistration()方法（它会得到一个Dynamic作为参数）来配置multipart的具体细节*/
+    registration.setMultipartConfig(
+            new MultipartConfigElement("/tmp/spittr/uploads", 2097152, 4194304, 0));
+  }
 }

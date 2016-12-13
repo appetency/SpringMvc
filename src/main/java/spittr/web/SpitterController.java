@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import spittr.Spitter;
 import spittr.data.SpitterRepository;
 
@@ -43,6 +44,7 @@ public String showRegistrationForm(Model model) {
 }
  @RequestMapping(value="/register", method= POST)
  public String processRegistration(
+         @RequestPart("profilePicture") byte[] profilepicture,
          @Valid Spitter spitter,
          Errors errors) {
      if (errors.hasErrors()) {
